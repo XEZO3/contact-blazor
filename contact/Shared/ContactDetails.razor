@@ -1,0 +1,30 @@
+﻿@using Domain.Models
+
+@if (Contact != null)
+{
+    <div>
+        <h3>Contact Details</h3>
+        <dl class="row">
+            <dt class="col-sm-3">First Name:</dt>
+            <dd class="col-sm-9">@Contact.FirstName</dd>
+
+            <dt class="col-sm-3">Last Name:</dt>
+            <dd class="col-sm-9">@Contact.LastName</dd>
+
+            <dt class="col-sm-3">Email:</dt>
+            <dd class="col-sm-9">@Contact.Email</dd>
+
+            <dt class="col-sm-3">Phone Number:</dt>
+            <dd class="col-sm-9">@Contact.PhoneNumber</dd>
+        </dl>
+    </div>
+}
+else
+{
+    <p>Contact not found.</p>
+}
+
+@code {
+    [Parameter]
+    public Contact Contact { get; set; }
+}

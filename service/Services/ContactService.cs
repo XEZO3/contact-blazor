@@ -18,11 +18,16 @@ namespace Service.Services
         {
             _contactRepository = contactRepository;   
         }
-        public void Create(Contact entity)
+        public bool Create(Contact entity)
         {
-            LastId++;
+            var check =checkExist(entity, c => (c.FirstName == entity.FirstName && c.LastName == entity.LastName) || c.PhoneNumber == entity.PhoneNumber || c.Email == entity.Email);
+            if (check) {
+                return false;
+            }
+            LastId++;    
             entity.Id = LastId;
            _contactRepository.Add(entity);
+            return true;
         }
 
         public void Delete(int id)
@@ -41,10 +46,28 @@ namespace Service.Services
 
         }
 
-        public void Update( Contact entity)
+        public bool Update( Contact entity)
         {
-             _contactRepository.Update(entity);
+            var check = checkExist(entity, c =>c.Id !=entity.Id && c.FirstName == entity.FirstName && c.LastName == entity.LastName && c.PhoneNumber == entity.PhoneNumber && c.Email == entity.Email);
+            if (check)
+            {
+                return false;
+            }
+            else
+            {
+                _contactRepository.Update(entity);
+                return true;
+            }
 
+        }
+        public bool checkExist(Contact entity, Func<Contact, bool> filter) {
+            List<Contact> contact = GetAll();
+            Contact exist = contact.FirstOrDefault(filter);
+            if (exist != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

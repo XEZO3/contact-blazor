@@ -1,0 +1,26 @@
+﻿@page "/contact/details/{SId}"
+@using Domain.IServices;
+@using Domain.Models;
+@inject IContactService _contact;
+@inject NavigationManager NavigationManager;
+<div class="container mt-3">
+    
+    <ContactDetails Contact="@contact" />
+</div>
+
+
+@code {
+    [Parameter]
+    public string SId { get; set; }
+    private Contact contact;
+    
+    protected override void OnInitialized()
+    {
+        contact = _contact.GetById(int.TryParse(SId, out int Id) ? Id : throw new ArgumentException("Invalid parameter value", nameof(Id)));
+        if (contact == null)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+
+    }
+}

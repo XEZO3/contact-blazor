@@ -4,18 +4,21 @@
 @inject IContactService _contact
 <PageTitle>Home</PageTitle>
 
-<ContactTable contact="@contacts" />
+<ContactTable contact="@contacts" OnDelete="delete" />
 @code{
     private List<Contact> contacts;
 
     protected override void OnInitialized()
     {
-        Contact cc = new Contact();
-        cc.Email = "eee";
-        cc.FirstName = "hameedd";
-        cc.PhoneNumber = "3amk";
-        _contact.Create(cc);
+        
         contacts =   _contact.GetAll();
+    }
+    private void delete(int Id)
+    {
+        _contact.Delete(Id);
+        contacts = _contact.GetAll();
+        StateHasChanged();
+
     }
 
 }

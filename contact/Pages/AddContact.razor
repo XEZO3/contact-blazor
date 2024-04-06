@@ -4,12 +4,30 @@
 @inject IContactService _contact;
 @inject NavigationManager NavigationManager;
 <h3>Add Contact</h3>
-<ContactForm Contact="@contact" ButtonText="Save" OnValidSubmit="@HandleValidSubmit" />
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+<div class="container mt-3">
+    <ContactForm Contact="@contact" ButtonText="Save" OnValidSubmit="@HandleValidSubmit" />
+
+</div>
+
 @code {
     Contact contact =  new Contact();
-   
+    private string errorMessage;
+
     private void HandleValidSubmit(Contact c)
     {
-        _contact.Create(c);
+        if (_contact.Create(c))
+        {
+            NavigationManager.NavigateTo("/");
+
+        }
+        else
+        {
+            errorMessage = "Contact already exists.";
+            StateHasChanged();
+        }
     }
 }

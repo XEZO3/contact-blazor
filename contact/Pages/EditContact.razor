@@ -36,12 +36,20 @@
         <button class="btn btn-success" type="submit">Save</button>
     </EditForm>
 </div> *@
-<ContactForm Contact="@contact" ButtonText="Save" OnValidSubmit="@HandleValidSubmit" />
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+<div class="container mt-3">
+    <ContactForm Contact="@contact" ButtonText="Save" OnValidSubmit="@HandleValidSubmit" />
+
+</div>
 
 @code {
     [Parameter]
     public string SId { get; set; }
     private Contact contact;
+    private string errorMessage;
     protected override void OnInitialized()
     {
         contact = _contact.GetById(int.TryParse(SId, out int Id) ? Id : throw new ArgumentException("Invalid parameter value", nameof(Id)));
@@ -53,7 +61,26 @@
     }
     private void HandleValidSubmit(Contact c)
     {
-        Console.WriteLine(c.FirstName);
-        _contact.Update(c);
+        
+
+        bool updateSuccess = _contact.Update(c);
+
+        if (updateSuccess)
+        {
+            contact.FirstName = c.FirstName;
+            contact.LastName = c.LastName;
+            contact.Email = c.Email;
+            contact.PhoneNumber = c.PhoneNumber;
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            errorMessage = "Failed to update contact. Contact already exists or another error occurred.";
+            StateHasChanged();
+        }
+
+        // _contact.Update(c);
+        // NavigationManager.NavigateTo("/");
+
     }
 }
