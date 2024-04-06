@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "contact", "contact\contact.csproj", "{02176D25-C271-4056-A994-E1B6DD7F8982}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "contact", "contact\contact.csproj", "{02176D25-C271-4056-A994-E1B6DD7F8982}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{B6021834-97A5-45C5-8E7D-761C301E7AD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{B6021834-97A5-45C5-8E7D-761C301E7AD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{4E5B0809-73EE-4D6C-98A3-3FE0D3E5ACD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{4E5B0809-73EE-4D6C-98A3-3FE0D3E5ACD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "service\Service.csproj", "{1FE9F061-02D7-4899-B77C-B2F5CB402516}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "service\Service.csproj", "{1FE9F061-02D7-4899-B77C-B2F5CB402516}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

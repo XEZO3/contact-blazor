@@ -1,0 +1,59 @@
+﻿@page "/contact/edit/{SId}"
+@using Domain.IServices;
+@using Domain.Models;
+@inject IContactService _contact;
+@inject NavigationManager NavigationManager;
+<h3>Editing @contact.FirstName contact</h3>
+@* <div class="container">
+    <EditForm Model="@contact" OnValidSubmit="@(() => HandleValidSubmit(contact))">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <InputText class="form-control" id="firstName" @bind-Value="contact.FirstName" />
+            <ValidationMessage class="text-danger" For="@(() => contact.FirstName)" />
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <InputText class="form-control" id="lastName" @bind-Value="contact.LastName" />
+            <ValidationMessage class="text-danger" For="@(() => contact.LastName)" />
+        </div>
+
+        <div class="form-group">
+            <label for="Email">Email:</label>
+            <InputText class="form-control" id="Email" @bind-Value="contact.Email" />
+            <ValidationMessage class="text-danger" For="@(() => contact.Email)" />
+        </div>
+
+        <div class="form-group">
+            <label for="PhoneNumber">Phone Number:</label>
+            <InputText class="form-control" id="PhoneNumber" @bind-Value="contact.PhoneNumber" />
+            <ValidationMessage class="text-danger" For="@(() => contact.PhoneNumber)" />
+        </div>
+
+        <button class="btn btn-success" type="submit">Save</button>
+    </EditForm>
+</div> *@
+<ContactForm Contact="@contact" ButtonText="Save" OnValidSubmit="@HandleValidSubmit" />
+
+@code {
+    [Parameter]
+    public string SId { get; set; }
+    private Contact contact;
+    protected override void OnInitialized()
+    {
+        contact = _contact.GetById(int.TryParse(SId, out int Id) ? Id : throw new ArgumentException("Invalid parameter value", nameof(Id)));
+        if (contact == null)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+
+    }
+    private void HandleValidSubmit(Contact c)
+    {
+        Console.WriteLine(c.FirstName);
+        _contact.Update(c);
+    }
+}

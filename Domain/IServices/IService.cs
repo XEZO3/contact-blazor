@@ -8,8 +8,8 @@ namespace Domain.IServices
 {
     public interface IService<T> where T : class
     {
-        Task<List<T>> GetAll();
-        Task<T> GetById(int id);
+        List<T> GetAll();
+        T GetById(int id);
         void Create(T entity);
         void Update(T entity);
         void Delete(int id);

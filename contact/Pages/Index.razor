@@ -1,9 +1,21 @@
 ﻿@page "/"
+@using Domain.IServices;
+@using Domain.Models;
+@inject IContactService _contact
+<PageTitle>Home</PageTitle>
 
-<PageTitle>Index</PageTitle>
+<ContactTable contact="@contacts" />
+@code{
+    private List<Contact> contacts;
 
-<h1>Hello, world!</h1>
+    protected override void OnInitialized()
+    {
+        Contact cc = new Contact();
+        cc.Email = "eee";
+        cc.FirstName = "hameedd";
+        cc.PhoneNumber = "3amk";
+        _contact.Create(cc);
+        contacts =   _contact.GetAll();
+    }
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+}

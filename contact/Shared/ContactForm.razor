@@ -1,0 +1,64 @@
+﻿@using Domain.Models
+
+<EditForm Model="@Contact" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <InputText class="form-control" id="firstName" @bind-Value="Contact.FirstName" />
+        <ValidationMessage class="text-danger" For="@(() => Contact.FirstName)" />
+    </div>
+
+    <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <InputText class="form-control" id="lastName" @bind-Value="Contact.LastName" />
+        <ValidationMessage class="text-danger" For="@(() => Contact.LastName)" />
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email:</label>
+        <InputText class="form-control" id="Email" @bind-Value="Contact.Email" />
+        <ValidationMessage class="text-danger" For="@(() => Contact.Email)" />
+    </div>
+
+    <div class="form-group">
+        <label for="PhoneNumber">Phone Number:</label>
+        <InputText class="form-control" id="PhoneNumber" @bind-Value="Contact.PhoneNumber" />
+        <ValidationMessage class="text-danger" For="@(() => Contact.PhoneNumber)" />
+    </div>
+
+    <button class="btn btn-success" type="submit">@ButtonText</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public Contact Contact { get; set; }
+
+    [Parameter]
+    public string ButtonText { get; set; }
+
+    [Parameter]
+    public Action<Contact> OnValidSubmit { get; set; }
+
+    private Contact contactCopy;
+
+    protected override void OnInitialized()
+    {
+        // Create a copy of the contact for editing, so changes won't affect the original contact object
+        // contactCopy = new Contact
+        //     {
+        //         FirstName = Contact.FirstName,
+        //         LastName = Contact.LastName,
+        //         Email = Contact.Email,
+        //         PhoneNumber = Contact.PhoneNumber
+        //     };
+
+        // base.OnInitialized();
+    }
+
+    private void HandleValidSubmit()
+    {
+        OnValidSubmit(Contact);
+    }
+}

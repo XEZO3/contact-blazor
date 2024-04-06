@@ -1,4 +1,5 @@
-﻿using Domain.IRepository;
+﻿
+using Domain.IRepository;
 using Domain.IServices;
 using Domain.Models;
 using System;
@@ -12,12 +13,15 @@ namespace Service.Services
     public class ContactService : IContactService
     {
         private readonly IContactRepository _contactRepository;
+        public static int LastId = 0;
         public ContactService(IContactRepository contactRepository)
         {
             _contactRepository = contactRepository;   
         }
         public void Create(Contact entity)
         {
+            LastId++;
+            entity.Id = LastId;
            _contactRepository.Add(entity);
         }
 
@@ -26,14 +30,14 @@ namespace Service.Services
             _contactRepository.Delete(id);
         }
 
-        public Task<List<Contact>> GetAll()
+        public List<Contact> GetAll()
         {
-            return Task.FromResult(_contactRepository.GetAll());
+            return _contactRepository.GetAll();
         }
 
-        public Task<Contact> GetById(int id)
+        public Contact GetById(int id)
         {
-            return Task.FromResult(_contactRepository.GetById(id));
+            return _contactRepository.GetById(id);
 
         }
 

@@ -1,0 +1,15 @@
+﻿@page "/contact/add";
+@using Domain.IServices;
+@using Domain.Models;
+@inject IContactService _contact;
+@inject NavigationManager NavigationManager;
+<h3>Add Contact</h3>
+<ContactForm Contact="@contact" ButtonText="Save" OnValidSubmit="@HandleValidSubmit" />
+@code {
+    Contact contact =  new Contact();
+   
+    private void HandleValidSubmit(Contact c)
+    {
+        _contact.Create(c);
+    }
+}

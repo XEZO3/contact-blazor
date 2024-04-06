@@ -10,5 +10,6 @@ namespace DAL.Repository
 {
     public class ContactRepository:Repository<Contact>,IContactRepository
     {
+        public static int Id = 1;
     }
 }
